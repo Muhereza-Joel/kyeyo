@@ -1,176 +1,476 @@
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import Dropdown from '@/Components/Dropdown';
-import NavLink from '@/Components/NavLink';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link, usePage } from '@inertiajs/react';
-import { useState } from 'react';
+import { useState } from "react";
+import { Link } from "@inertiajs/react";
+import ApplicationLogo from "@/Components/ApplicationLogo";
+import Dropdown from "@/Components/Dropdown";
+import NavLink from "@/Components/NavLink";
+import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
+import ThemeToggleButton from "@/Components/ThemeToggleButton";
+import { usePermission } from "@/Hooks/usePermissions";
+import {
+    FaBars,
+    FaTimes,
+    FaTachometerAlt,
+    FaBookOpen,
+    FaBriefcase,
+    FaCog,
+    FaUserShield,
+    FaCogs,
+    FaGraduationCap,
+    FaListAlt,
+    FaFacebook,
+    FaTwitter,
+    FaLinkedin,
+    FaCalendarPlus,
+    FaUserCircle,
+    FaUser,
+} from "react-icons/fa";
 
-export default function AuthenticatedLayout({ header, children }) {
-    const user = usePage().props.auth.user;
-
+export default function Authenticated({
+    user,
+    header,
+    children,
+    permissions = [],
+}) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
+    const { can } = usePermission(permissions);
 
     return (
-        <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
-            <nav className="border-b border-gray-100 bg-white dark:border-gray-700 dark:bg-gray-800">
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div className="flex h-16 justify-between">
-                        <div className="flex">
-                            <div className="flex shrink-0 items-center">
-                                <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                                </Link>
-                            </div>
-
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink
-                                    href={route('dashboard')}
-                                    active={route().current('dashboard')}
-                                >
-                                    Dashboard
-                                </NavLink>
-                            </div>
-                        </div>
-
-                        <div className="hidden sm:ms-6 sm:flex sm:items-center">
-                            <div className="relative ms-3">
-                                <Dropdown>
-                                    <Dropdown.Trigger>
-                                        <span className="inline-flex rounded-md">
-                                            <button
-                                                type="button"
-                                                className="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none dark:bg-gray-800 dark:text-gray-400 dark:hover:text-gray-300"
-                                            >
-                                                {user.name}
-
-                                                <svg
-                                                    className="-me-0.5 ms-2 h-4 w-4"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                >
-                                                    <path
-                                                        fillRule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                        clipRule="evenodd"
-                                                    />
-                                                </svg>
-                                            </button>
-                                        </span>
-                                    </Dropdown.Trigger>
-
-                                    <Dropdown.Content>
-                                        <Dropdown.Link
-                                            href={route('profile.edit')}
-                                        >
-                                            Profile
-                                        </Dropdown.Link>
-                                        <Dropdown.Link
-                                            href={route('logout')}
-                                            method="post"
-                                            as="button"
-                                        >
-                                            Log Out
-                                        </Dropdown.Link>
-                                    </Dropdown.Content>
-                                </Dropdown>
-                            </div>
-                        </div>
-
-                        <div className="-me-2 flex items-center sm:hidden">
+        <div className="min-h-screen bg-neutral dark:bg-gray-900">
+            {/* Top Navigation Bar */}
+            <nav className="sticky top-0 z-50 bg-neutral dark:bg-gray-900 border-b border-gray-300 dark:border-gray-700">
+                <div className="max-w-12xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex justify-between h-16 items-center">
+                        {/* Left Section: Menu Icon + Logo */}
+                        <div className="flex items-center">
+                            {/* Hamburger Menu Button */}
                             <button
                                 onClick={() =>
-                                    setShowingNavigationDropdown(
-                                        (previousState) => !previousState,
-                                    )
+                                    setShowingNavigationDropdown(true)
                                 }
-                                className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 transition duration-150 ease-in-out hover:bg-gray-100 hover:text-gray-500 focus:bg-gray-100 focus:text-gray-500 focus:outline-none dark:text-gray-500 dark:hover:bg-gray-900 dark:hover:text-gray-400 dark:focus:bg-gray-900 dark:focus:text-gray-400"
+                                className="p-2 text-gray-800 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 transition sm:hidden"
                             >
-                                <svg
-                                    className="h-6 w-6"
-                                    stroke="currentColor"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        className={
-                                            !showingNavigationDropdown
-                                                ? 'inline-flex'
-                                                : 'hidden'
-                                        }
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M4 6h16M4 12h16M4 18h16"
-                                    />
-                                    <path
-                                        className={
-                                            showingNavigationDropdown
-                                                ? 'inline-flex'
-                                                : 'hidden'
-                                        }
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M6 18L18 6M6 6l12 12"
-                                    />
-                                </svg>
+                                <FaBars className="text-2xl" />
                             </button>
-                        </div>
-                    </div>
-                </div>
 
-                <div
-                    className={
-                        (showingNavigationDropdown ? 'block' : 'hidden') +
-                        ' sm:hidden'
-                    }
-                >
-                    <div className="space-y-1 pb-3 pt-2">
-                        <ResponsiveNavLink
-                            href={route('dashboard')}
-                            active={route().current('dashboard')}
-                        >
-                            Dashboard
-                        </ResponsiveNavLink>
-                    </div>
-
-                    <div className="border-t border-gray-200 pb-1 pt-4 dark:border-gray-600">
-                        <div className="px-4">
-                            <div className="text-base font-medium text-gray-800 dark:text-gray-200">
-                                {user.name}
-                            </div>
-                            <div className="text-sm font-medium text-gray-500">
-                                {user.email}
-                            </div>
+                            {/* App Logo */}
+                            <Link href="/" className="ml-3">
+                                <ApplicationLogo className="h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                            </Link>
                         </div>
 
-                        <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route('profile.edit')}>
-                                Profile
-                            </ResponsiveNavLink>
-                            <ResponsiveNavLink
-                                method="post"
-                                href={route('logout')}
-                                as="button"
+                        {/* Desktop Navigation */}
+                        <div className="hidden sm:flex sm:space-x-6">
+                            <NavLink
+                                href={route("dashboard")}
+                                active={route().current("dashboard")}
+                                className="flex items-center py-3 border-none "
                             >
-                                Log Out
-                            </ResponsiveNavLink>
+                                <FaTachometerAlt className="mr-2 text-xl text-green-500" />
+                                Dashboard
+                            </NavLink>
+                            {can("Create Company Profile") && (
+                                <NavLink
+                                    href={route("company-profile.index")}
+                                    active={route().current(
+                                        "company-profile.index"
+                                    )}
+                                    className="flex items-center py-3 border-none"
+                                >
+                                    <FaCalendarPlus
+                                        className="mr-2 text-xl"
+                                        color="#4caf50"
+                                    />
+                                    Company Profile
+                                </NavLink>
+                            )}
+                            {can("View Jobs") && (
+                                <NavLink
+                                    href={route("jobs.index")}
+                                    active={route().current("jobs.index")}
+                                    className="flex items-center py-3 border-none "
+                                >
+                                    <FaBriefcase className="mr-2 text-xl text-green-500" />
+                                    Jobs
+                                </NavLink>
+                            )}
+                            {can("View Applications") && (
+                                <NavLink
+                                    href={route("applications.index")}
+                                    active={route().current(
+                                        "applications.index"
+                                    )}
+                                    className="flex items-center py-3 border-none "
+                                >
+                                    <FaBookOpen className="mr-2 text-xl text-green-500" />
+                                    Applications
+                                </NavLink>
+                            )}
+
+                            {can("View Users") && (
+                                <NavLink
+                                    href={route("users.index")}
+                                    active={route().current("users.index")}
+                                    className="flex items-center py-3 border-none "
+                                >
+                                    <FaBriefcase
+                                        className="mr-2 text-xl"
+                                        color="#4caf50"
+                                    />
+                                    Manage Users
+                                </NavLink>
+                            )}
+                        </div>
+
+                        {/* Right Section: Profile & Theme Toggle */}
+                        <div className="hidden sm:flex items-center space-x-4 ml-auto">
+                            <ThemeToggleButton />
+                            <Dropdown>
+                                <Dropdown.Trigger>
+                                    <button className="inline-flex items-center px-3 py-2 text-sm font-medium rounded-md text-blue-900 dark:text-gray-400 bg-gray-200 dark:bg-gray-800 hover:text-gray-700 focus:outline-none transition">
+                                        {user.avatar ? (
+                                            <img
+                                                src={user.avatar}
+                                                alt="Avatar"
+                                                className="w-6 h-6 rounded-full mr-2"
+                                            />
+                                        ) : (
+                                            <FaUserCircle className="w-6 h-6 mr-2 text-gray-500" />
+                                        )}
+                                        {user.name}
+                                    </button>
+                                </Dropdown.Trigger>
+                                <Dropdown.Content>
+                                    {/* Large Profile Section */}
+                                    <div className="flex flex-col items-center p-4 border-b border-gray-200 dark:border-gray-700">
+                                        {user.avatar ? (
+                                            <img
+                                                src={user.avatar}
+                                                alt="Avatar"
+                                                className="w-32 h-32 rounded-full mb-2"
+                                            />
+                                        ) : (
+                                            <FaUserCircle className="w-32 h-32 text-gray-500 mb-2" />
+                                        )}
+                                        <p className="text-sm text-gray-700 dark:text-gray-300">
+                                            Signed in as{" "}
+                                            <span className="font-semibold">
+                                                {user.name}
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <Dropdown.Link
+                                        href={route("edit-user-profile")}
+                                        className="flex items-center py-3"
+                                    >
+                                        <FaUser className="mr-2 text-xl text-green-500" />
+                                        Your Profile
+                                    </Dropdown.Link>
+
+                                    <Dropdown.Link
+                                        href={route("profile.edit")}
+                                        className="flex items-center py-3"
+                                    >
+                                        <FaCog className="mr-2 text-xl text-green-500" />
+                                        Account Settings
+                                    </Dropdown.Link>
+
+                                    <hr className="border-t border-gray-200 dark:border-gray-700" />
+                                    {can("Create Role") && (
+                                        <Dropdown.Link
+                                            href={route("roles.index")}
+                                            active={route().current(
+                                                "roles.index"
+                                            )}
+                                            className="flex items-center py-3"
+                                        >
+                                            <FaUserShield
+                                                className="mr-2 text-xl"
+                                                color="#4caf50"
+                                            />
+                                            Manage Roles
+                                        </Dropdown.Link>
+                                    )}
+
+                                    <hr className="border-t border-gray-200 dark:border-gray-700" />
+                                    {can("Create Role") && (
+                                        <Dropdown.Link
+                                            href={route("assign-permissions")}
+                                            active={route().current(
+                                                "assign-permissions"
+                                            )}
+                                            className="flex items-center py-3"
+                                        >
+                                            <FaCogs
+                                                className="mr-2 text-xl"
+                                                color="#4caf50"
+                                            />
+                                            Assign Permissions
+                                        </Dropdown.Link>
+                                    )}
+
+                                    <hr className="border-t border-gray-200 dark:border-gray-700" />
+                                    {can("Create Profession") && (
+                                        <Dropdown.Link
+                                            href={route("professions.index")}
+                                            active={route().current(
+                                                "professions.index"
+                                            )}
+                                            className="flex items-center py-3"
+                                        >
+                                            <FaGraduationCap
+                                                className="mr-2 text-xl"
+                                                color="#4caf50"
+                                            />
+                                            Manage Professions
+                                        </Dropdown.Link>
+                                    )}
+
+                                    <hr className="border-t border-gray-200 dark:border-gray-700" />
+                                    {can("Create Category") && (
+                                        <Dropdown.Link
+                                            href={route("categories.index")}
+                                            active={route().current(
+                                                "categories.index"
+                                            )}
+                                            className="flex items-center py-3"
+                                        >
+                                            <FaListAlt
+                                                className="mr-2 text-xl"
+                                                color="#4caf50"
+                                            />
+                                            Manage Categories
+                                        </Dropdown.Link>
+                                    )}
+                                    <hr className="border-t border-gray-200 dark:border-gray-700" />
+                                    {can("Create Experience Level") && (
+                                        <Dropdown.Link
+                                            href={route("seniority.index")}
+                                            active={route().current(
+                                                "seniority.index"
+                                            )}
+                                            className="flex items-center py-3"
+                                        >
+                                            <FaGraduationCap
+                                                className="mr-2 text-xl"
+                                                color="#4caf50"
+                                            />
+                                            Seniority Levels
+                                        </Dropdown.Link>
+                                    )}
+
+                                    <Dropdown.Link
+                                        href={route("logout")}
+                                        method="post"
+                                        as="button"
+                                        className="flex items-center py-3"
+                                    >
+                                        <FaUserShield className="mr-2 text-xl text-green-500" />
+                                        Logout
+                                    </Dropdown.Link>
+                                </Dropdown.Content>
+                            </Dropdown>
                         </div>
                     </div>
                 </div>
             </nav>
 
+            {/* Mobile Slide-In Menu */}
+            <div
+                className={`fixed top-0 left-0 w-64 h-full bg-gray-950 dark:bg-gray-800 transform ${
+                    showingNavigationDropdown
+                        ? "translate-x-0"
+                        : "-translate-x-full"
+                } transition-transform duration-300 ease-in-out z-50`}
+            >
+                {/* Close Button */}
+                <div className="flex justify-end p-4">
+                    <button
+                        onClick={() => setShowingNavigationDropdown(false)}
+                        className="text-gray-400 hover:text-gray-200"
+                    >
+                        <FaTimes className="text-2xl" />
+                    </button>
+                </div>
+
+                {/* Mobile Navigation Links */}
+                <div className="flex flex-col space-y-4 p-4 text-gray-300">
+                    <ResponsiveNavLink
+                        href={route("dashboard")}
+                        active={route().current("dashboard")}
+                    >
+                        <FaTachometerAlt className="mr-2 text-green-500" />
+                        Dashboard
+                    </ResponsiveNavLink>
+                    {can("View Jobs") && (
+                        <ResponsiveNavLink
+                            href={route("jobs.index")}
+                            active={route().current("jobs.index")}
+                        >
+                            <FaBriefcase className="mr-2 text-green-500" />
+                            Jobs
+                        </ResponsiveNavLink>
+                    )}
+                    {can("View Applications") && (
+                        <ResponsiveNavLink
+                            href={route("applications.index")}
+                            active={route().current("applications.index")}
+                        >
+                            <FaBookOpen className="mr-2 text-green-500" />
+                            Applications
+                        </ResponsiveNavLink>
+                    )}
+                    <ResponsiveNavLink href={route("profile.edit")}>
+                        <FaCog className="mr-2 text-green-500" />
+                        Account Settings
+                    </ResponsiveNavLink>
+                    <ResponsiveNavLink
+                        href={route("logout")}
+                        method="post"
+                        as="button"
+                    >
+                        <FaUserShield className="mr-2 text-green-500" />
+                        Logout
+                    </ResponsiveNavLink>
+
+                    <ThemeToggleButton />
+                </div>
+            </div>
+
             {header && (
-                <header className="bg-white shadow dark:bg-gray-800">
-                    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+                <header className="bg-gray-900 dark:bg-gray-900">
+                    <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
                         {header}
                     </div>
                 </header>
             )}
 
+            {/* Main Content */}
             <main>{children}</main>
+
+            <footer className="bg-gray-900 text-white py-8 dark:bg-gray-800 dark:text-white pt-20">
+                <div className="container mx-auto px-4">
+                    <div className="grid md:grid-cols-3 gap-8">
+                        {/* Company Info */}
+                        <div>
+                            <h2 className="text-xl font-semibold">
+                                Kyeeyo from Xurebuilt
+                            </h2>
+                            <p className="mt-2 text-sm text-gray-400 dark:text-gray-300">
+                                We connect technicians in the construction
+                                industry with clients for hassle-free,
+                                professional construction services and help
+                                companies find trusted experts and manage their
+                                projects with ease.
+                            </p>
+
+                            <address className="mt-4 text-sm text-gray-400 dark:text-gray-300">
+                                <h4>Find Us On</h4>
+                                Plot 1 Lugard Street, Fortportal Tourism City,
+                                Uganda
+                                <br />
+                                Call Us On: (+256) 772240510
+                                <br />
+                                <a
+                                    href="mailto:info@xurebuilt.com"
+                                    className="text-green-500 hover:text-green-400 dark:text-green-400"
+                                >
+                                    Email Us: info@xurebuilt.com
+                                </a>
+                            </address>
+                        </div>
+
+                        {/* Quick Links */}
+                        <div>
+                            <h3 className="text-xl font-semibold">
+                                Quick Links
+                            </h3>
+                            <ul className="mt-4 space-y-2 text-sm text-gray-400 dark:text-gray-300">
+                                <li>
+                                    <a
+                                        href="#"
+                                        className="hover:text-green-500 dark:hover:text-green-400"
+                                    >
+                                        Our Store
+                                    </a>
+                                </li>
+                                <li>
+                                    <a
+                                        href="#"
+                                        className="hover:text-green-500 dark:hover:text-green-400"
+                                    >
+                                        Features
+                                    </a>
+                                </li>
+                                <li>
+                                    <a
+                                        href="#"
+                                        className="hover:text-green-500 dark:hover:text-green-400"
+                                    >
+                                        Pricing
+                                    </a>
+                                </li>
+                                <li>
+                                    <a
+                                        href="#"
+                                        className="hover:text-green-500 dark:hover:text-green-400"
+                                    >
+                                        About Us
+                                    </a>
+                                </li>
+                                <li>
+                                    <a
+                                        href="#"
+                                        className="hover:text-green-500 dark:hover:text-green-400"
+                                    >
+                                        Contact
+                                    </a>
+                                </li>
+                                <li>
+                                    <a
+                                        href="#"
+                                        className="hover:text-green-500 dark:hover:text-green-400"
+                                    >
+                                        FAQ
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        {/* Social/Follow Us */}
+                        <div>
+                            <h3 className="text-xl font-semibold">Follow Us</h3>
+                            <div className="mt-4 flex space-x-6">
+                                {/* Replace these with actual social icons */}
+                                <a
+                                    href="#"
+                                    className="text-gray-400 hover:text-green-500 dark:text-gray-300 dark:hover:text-green-400"
+                                >
+                                    <FaFacebook size={20} />
+                                </a>
+                                <a
+                                    href="#"
+                                    className="text-gray-400 hover:text-green-500 dark:text-gray-300 dark:hover:text-green-400"
+                                >
+                                    <FaTwitter size={20} />
+                                </a>
+                                <a
+                                    href="#"
+                                    className="text-gray-400 hover:text-green-500 dark:text-gray-300 dark:hover:text-green-400"
+                                >
+                                    <FaLinkedin size={20} />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr className="my-6 border-gray-600 dark:border-gray-700" />
+
+                    <div className="text-center text-sm text-gray-400 dark:text-gray-300">
+                        <p>Copyright © Xurebuilt {new Date().getFullYear()}</p>
+                    </div>
+                </div>
+            </footer>
         </div>
     );
 }
