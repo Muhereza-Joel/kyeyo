@@ -26,5 +26,8 @@ jobs:
     - name: Install dependencies
       run: npm install
 
+    - name: Install Gulp globally (if needed)
+      run: npm install -g gulp-cli
+
     - name: Run Gulp build
-      run: gulp build
+      run: npx gulp build
