@@ -1,0 +1,1 @@
+import{j as e}from"./app-tivWJvp6.js";function t({children:s}){return e.jsx("div",{className:"min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-neutral dark:bg-gray-900",children:e.jsx("div",{className:"w-full sm:max-w-sm mt-6 p-0 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg",children:s})})}export{t as G};
