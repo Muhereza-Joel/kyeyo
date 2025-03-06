@@ -46,6 +46,7 @@ class UsersController extends Controller
             'success' => session('success'),
             'error' => session('error'),
             'users' => $users, // Includes roles and permissions
+            'avator' => optional(Auth::user()->load('profile')->profile)->getFirstMediaUrl('avator_images'),
         ]);
     }
 
@@ -63,6 +64,7 @@ class UsersController extends Controller
             'roles' => $roles,
             'success' => session('success'),
             'error' => session('error'),
+            'avator' => optional(Auth::user()->load('profile')->profile)->getFirstMediaUrl('avator_images'),
         ]);
     }
 

@@ -59,6 +59,7 @@ class ApplicationsController extends Controller
             'success' => session('success'),
             'error' => session('error'),
             'applications' => $applications,
+            'avator' => optional(Auth::user()->load('profile')->profile)->getFirstMediaUrl('avator_images'),
         ]);
     }
 
@@ -113,6 +114,7 @@ class ApplicationsController extends Controller
             'success' => session('success'),
             'error' => session('error'),
             'application' => $application,
+            'avator' => optional(Auth::user()->load('profile')->profile)->getFirstMediaUrl('avator_images'),
         ]);
     }
 
@@ -156,6 +158,7 @@ class ApplicationsController extends Controller
             'error' => session('error'),
             'permissions' => Auth::user()->getAllPermissions()->pluck('name'),
             'job_id' => $id,
+            'avator' => optional(Auth::user()->load('profile')->profile)->getFirstMediaUrl('avator_images'),
         ]);
     }
 }

@@ -12,9 +12,14 @@ export default function Dashboard({
     applications,
     companies,
     images,
+    avator,
 }) {
     return (
-        <AuthenticatedLayout user={auth.user} permissions={permissions}>
+        <AuthenticatedLayout
+            user={auth.user}
+            permissions={permissions}
+            avator={avator}
+        >
             <Head title="Dashboard" />
 
             <div className="py-2">

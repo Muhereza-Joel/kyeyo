@@ -4,11 +4,18 @@ import UpdatePasswordForm from "./Partials/UpdatePasswordForm";
 import UpdateProfileInformationForm from "./Partials/UpdateProfileInformationForm";
 import { Head } from "@inertiajs/react";
 
-export default function Edit({ auth, mustVerifyEmail, status, permissions }) {
+export default function Edit({
+    auth,
+    mustVerifyEmail,
+    status,
+    permissions,
+    avator,
+}) {
     return (
         <AuthenticatedLayout
             user={auth.user}
             permissions={permissions}
+            avator={avator}
             header={
                 <h2 className="font-semibold text-xl text-gray-100 dark:text-gray-200 leading-tight">
                     Account Settings

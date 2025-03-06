@@ -30,6 +30,7 @@ export default function Authenticated({
     header,
     children,
     permissions = [],
+    avator,
 }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
@@ -128,9 +129,9 @@ export default function Authenticated({
                             <Dropdown>
                                 <Dropdown.Trigger>
                                     <button className="inline-flex items-center px-3 py-2 text-sm font-medium rounded-md text-blue-900 dark:text-gray-400 bg-gray-200 dark:bg-gray-800 hover:text-gray-700 focus:outline-none transition">
-                                        {user.avatar ? (
+                                        {user.avator || avator ? (
                                             <img
-                                                src={user.avatar}
+                                                src={user.avator || avator}
                                                 alt="Avatar"
                                                 className="w-6 h-6 rounded-full mr-2"
                                             />
@@ -143,9 +144,9 @@ export default function Authenticated({
                                 <Dropdown.Content>
                                     {/* Large Profile Section */}
                                     <div className="flex flex-col items-center p-4 border-b border-gray-200 dark:border-gray-700">
-                                        {user.avatar ? (
+                                        {user.avator || avator ? (
                                             <img
-                                                src={user.avatar}
+                                                src={user.avatar || avator}
                                                 alt="Avatar"
                                                 className="w-32 h-32 rounded-full mb-2"
                                             />

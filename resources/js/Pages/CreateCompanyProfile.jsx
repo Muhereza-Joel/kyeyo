@@ -17,6 +17,7 @@ export default function CreateCompanyProfile({
     success,
     error,
     permissions,
+    avator,
 }) {
     const [imagePreview, setImagePreview] = useState(null);
     const [coverPreview, setCoverPreview] = useState(null);
@@ -85,6 +86,7 @@ export default function CreateCompanyProfile({
         <AuthenticatedLayout
             user={auth.user}
             permissions={permissions}
+            avator={avator}
             header={
                 <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-xl text-gray-100 dark:text-gray-200 leading-tight">

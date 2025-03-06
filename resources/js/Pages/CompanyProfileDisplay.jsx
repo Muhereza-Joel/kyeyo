@@ -16,12 +16,14 @@ export default function CompanyProfileDisplay({
     permissions,
     logo,
     cover_image,
+    avator,
 }) {
     const { can } = usePermission(permissions);
     return (
         <AuthenticatedLayout
             user={auth.user}
             permissions={permissions}
+            avator={avator}
             header={
                 <div className="px-48 flex justify-between items-center">
                     <h2 className="font-semibold text-xl text-gray-100 dark:text-gray-200 leading-tight">

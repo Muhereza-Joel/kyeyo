@@ -22,6 +22,7 @@ class ProfessionController extends Controller
             'error' => session('error'),
             'permissions' => Auth::user()->getAllPermissions()->pluck('name'),
             'professions' => $professions,
+            'avator' => optional(Auth::user()->load('profile')->profile)->getFirstMediaUrl('avator_images'),
         ]);
     }
 

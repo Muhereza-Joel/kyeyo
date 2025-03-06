@@ -23,6 +23,7 @@ export default function ApplicationDetails({
     permissions,
     application,
     comments,
+    avator,
 }) {
     const { can } = usePermission(permissions);
     const quillRef = useRef(null);
@@ -48,6 +49,7 @@ export default function ApplicationDetails({
         <AuthenticatedLayout
             user={auth.user}
             permissions={permissions}
+            avator={avator}
             header={
                 <div className="flex justify-between items-center">
                     <div className="flex">

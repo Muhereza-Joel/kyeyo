@@ -22,6 +22,7 @@ class IndustryController extends Controller
             'error' => session('error'),
             'permissions' => Auth::user()->getAllPermissions()->pluck('name'),
             'categories' => $categories,
+            'avator' => optional(Auth::user()->load('profile')->profile)->getFirstMediaUrl('avator_images'),
         ]);
     }
 

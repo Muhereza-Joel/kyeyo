@@ -18,6 +18,7 @@ export default function ManageRolesPermissions({
     roles,
     permissions,
     userPermissions,
+    avator,
 }) {
     const [activeTab, setActiveTab] = useState("roles");
     const [editingRole, setEditingRole] = useState(null);
@@ -136,6 +137,7 @@ export default function ManageRolesPermissions({
         <AuthenticatedLayout
             user={auth.user}
             permissions={userPermissions}
+            avator={avator}
             header={
                 <h2 className="font-semibold text-xl text-gray-100 dark:text-gray-200 leading-tight">
                     Manage User Roles and Permissions

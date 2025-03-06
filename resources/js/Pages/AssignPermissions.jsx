@@ -13,6 +13,7 @@ export default function AssignPermissions({
     userPermissions,
     success,
     error,
+    avator,
 }) {
     const [selectedRole, setSelectedRole] = useState(null); // Store the selected role
     const { data, setData, post, processing } = useForm({
@@ -93,6 +94,7 @@ export default function AssignPermissions({
         <AuthenticatedLayout
             user={auth.user}
             permissions={userPermissions}
+            avator={avator}
             header={
                 <h2 className="font-semibold text-xl text-gray-100 dark:text-gray-200 leading-tight">
                     Assign Permissions to Roles

@@ -10,7 +10,12 @@ import Dropdown from "@/Components/Dropdown";
 import Pagination from "@/Components/Pagination";
 import { FaArrowCircleRight } from "react-icons/fa";
 
-export default function Applications({ auth, permissions, applications }) {
+export default function Applications({
+    auth,
+    permissions,
+    applications,
+    avator,
+}) {
     const { can } = usePermission(permissions);
     const { data, setData } = useForm({});
     const [viewMode, setViewMode] = useState("grid");
@@ -248,6 +253,7 @@ export default function Applications({ auth, permissions, applications }) {
         <AuthenticatedLayout
             user={auth.user}
             permissions={permissions}
+            avator={avator}
             header={
                 <div className="flex flex-wrap justify-between items-center">
                     <div className="flex flex-wrap items-center gap-4">

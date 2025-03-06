@@ -24,6 +24,7 @@ export default function JobDetails({
     job,
     logo,
     cover_image,
+    avator,
 }) {
     const { can } = usePermission(permissions);
     const [activeTab, setActiveTab] = useState("job"); // Default to job description
@@ -32,6 +33,7 @@ export default function JobDetails({
         <AuthenticatedLayout
             user={auth.user}
             permissions={permissions}
+            avator={avator}
             header={
                 <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-xl text-gray-100 dark:text-gray-200 leading-tight">

@@ -26,6 +26,7 @@ class RoleController extends Controller
             'roles' => $roles,
             'permissions' => $permissions,
             'userPermissions' => Auth::user()->getAllPermissions()->pluck('name'),
+            'avator' => optional(Auth::user()->load('profile')->profile)->getFirstMediaUrl('avator_images'),
         ]);
     }
 
@@ -112,6 +113,7 @@ class RoleController extends Controller
             'roles' => $roles,
             'permissions' => $permissions,
             'userPermissions' => Auth::user()->getAllPermissions()->pluck('name'),
+            'avator' => optional(Auth::user()->load('profile')->profile)->getFirstMediaUrl('avator_images'),
         ]);
     }
 

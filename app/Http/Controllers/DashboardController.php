@@ -35,7 +35,8 @@ class DashboardController extends Controller
                 'users' => $users,
                 'applications' => $applications,
                 'companies' => $companies,
-                'images' => $imageUrls
+                'images' => $imageUrls,
+                'avator' => optional(Auth::user()->load('profile')->profile)->getFirstMediaUrl('avator_images'),
             ]
         );
     }

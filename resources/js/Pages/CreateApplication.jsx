@@ -17,6 +17,7 @@ export default function CreateApplication({
     error,
     permissions,
     job_id,
+    avator,
 }) {
     const { can } = usePermission(permissions);
     const quillRef = useRef(null);
@@ -52,6 +53,7 @@ export default function CreateApplication({
         <AuthenticatedLayout
             user={auth.user}
             permissions={permissions}
+            avator={avator}
             header={
                 <h2 className="font-semibold text-xl text-gray-100 dark:text-gray-200 leading-tight">
                     Create New Application

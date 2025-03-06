@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import GuestLayout from "@/Layouts/GuestLayout";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
@@ -16,6 +16,9 @@ export default function Register() {
         role: "technician", // Default value for role
     });
 
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
     useEffect(() => {
         return () => {
             reset("password", "password_confirmation");
@@ -31,7 +34,7 @@ export default function Register() {
     return (
         <GuestLayout>
             <Head title="Register" />
-            <div className="flex items-center justify-center  border-2 border-gray-300 dark:border-gray-700">
+            <div className="flex items-center justify-center">
                 <div
                     className="w-full max-w-sm p-3 rounded-lg  bg-white dark:bg-gray-900 
                                  
@@ -92,20 +95,27 @@ export default function Register() {
 
                         <div className="mt-4">
                             <InputLabel htmlFor="password" value="Password" />
-
-                            <TextInput
-                                id="password"
-                                type="password"
-                                name="password"
-                                value={data.password}
-                                className="mt-1 block w-full"
-                                autoComplete="new-password"
-                                onChange={(e) =>
-                                    setData("password", e.target.value)
-                                }
-                                required
-                            />
-
+                            <div className="relative">
+                                <TextInput
+                                    id="password"
+                                    type={showPassword ? "text" : "password"}
+                                    name="password"
+                                    value={data.password}
+                                    className="mt-1 block w-full"
+                                    autoComplete="new-password"
+                                    onChange={(e) =>
+                                        setData("password", e.target.value)
+                                    }
+                                    required
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+                                >
+                                    {showPassword ? "Hide" : "Show"}
+                                </button>
+                            </div>
                             <InputError
                                 message={errors.password}
                                 className="mt-2"
@@ -117,23 +127,30 @@ export default function Register() {
                                 htmlFor="password_confirmation"
                                 value="Confirm Password"
                             />
-
-                            <TextInput
-                                id="password_confirmation"
-                                type="password"
-                                name="password_confirmation"
-                                value={data.password_confirmation}
-                                className="mt-1 block w-full"
-                                autoComplete="new-password"
-                                onChange={(e) =>
-                                    setData(
-                                        "password_confirmation",
-                                        e.target.value
-                                    )
-                                }
-                                required
-                            />
-
+                            <div className="relative">
+                                <TextInput
+                                    id="password_confirmation"
+                                    type={showConfirmPassword ? "text" : "password"}
+                                    name="password_confirmation"
+                                    value={data.password_confirmation}
+                                    className="mt-1 block w-full"
+                                    autoComplete="new-password"
+                                    onChange={(e) =>
+                                        setData(
+                                            "password_confirmation",
+                                            e.target.value
+                                        )
+                                    }
+                                    required
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+                                >
+                                    {showConfirmPassword ? "Hide" : "Show"}
+                                </button>
+                            </div>
                             <InputError
                                 message={errors.password_confirmation}
                                 className="mt-2"
@@ -179,20 +196,22 @@ export default function Register() {
                             />
                         </div>
 
-                        <div className="flex items-center justify-end mt-4">
-                            <Link
-                                href={route("login")}
-                                className="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
-                            >
-                                Already registered?
-                            </Link>
-
+                        <div className="flex flex-col space-y-4 mt-4">
                             <PrimaryButton
-                                className="ms-4"
+                                className="w-full bg-gray-900 text-indigo-600 dark:bg-indigo-500 dark:text-white hover:bg-gray-200 dark:hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-300 focus:bg-gray-800 dark:focus:bg-indigo-600 flex items-center justify-center"
                                 disabled={processing}
                             >
                                 Register
                             </PrimaryButton>
+
+                            <div className="text-center">
+                                <Link
+                                    href={route("login")}
+                                    className="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                                >
+                                    Already registered?
+                                </Link>
+                            </div>
                         </div>
                     </form>
                 </div>

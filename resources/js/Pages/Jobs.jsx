@@ -19,6 +19,7 @@ export default function Jobs({
     seniorities,
     industries,
     professions,
+    avator,
 }) {
     const { can } = usePermission(permissions);
     const { data, setData } = useForm({});
@@ -126,6 +127,7 @@ export default function Jobs({
         <AuthenticatedLayout
             user={auth.user}
             permissions={permissions}
+            avator={avator}
             header={
                 <div className="flex flex-wrap justify-between items-center w-full gap-4">
                     <div className="flex flex-wrap items-center space-x-4 w-full max-w-3xl">

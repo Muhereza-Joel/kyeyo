@@ -117,7 +117,8 @@ class TagsController extends Controller
             'currentTag' => $tag,
             'seniorities' => $seniorities,
             'industries' => $industries,
-            'professions' => $professions
+            'professions' => $professions,
+            'avator' => optional(Auth::user()->load('profile')->profile)->getFirstMediaUrl('avator_images'),
         ]);
     }
 

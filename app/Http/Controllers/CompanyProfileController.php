@@ -24,6 +24,7 @@ class CompanyProfileController extends Controller
             'error' => session('error'),
             'logo' => $profile ? $profile->getFirstMediaUrl('profile_images') : null,
             'cover_image' => $profile ? $profile->getFirstMediaUrl('cover_image') : null,
+            'avator' => optional(Auth::user()->load('profile')->profile)->getFirstMediaUrl('avator_images'),
         ]);
     }
 
@@ -37,6 +38,7 @@ class CompanyProfileController extends Controller
             'permissions' => Auth::user()->getAllPermissions()->pluck('name'),
             'success' => session('success'),
             'error' => session('error'),
+            'avator' => optional(Auth::user()->load('profile')->profile)->getFirstMediaUrl('avator_images'),
         ]);
     }
 
@@ -122,6 +124,7 @@ class CompanyProfileController extends Controller
             'profile' => $profile,
             'logo' => $profile->getFirstMediaUrl('profile_images') ?: null, //use collection name
             'cover_image' => $profile->getFirstMediaUrl('cover_image') ?: null, //use collection name
+            'avator' => optional(Auth::user()->load('profile')->profile)->getFirstMediaUrl('avator_images'),
         ]);
     }
 

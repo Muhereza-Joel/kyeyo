@@ -84,7 +84,8 @@ class JobsController extends Controller
             'tags' => $tags, // Now each tag will have a 'jobs_count' field
             'seniorities' => $seniorities,
             'industries' => $industries,
-            'professions' => $professions
+            'professions' => $professions,
+            'avator' => optional(Auth::user()->load('profile')->profile)->getFirstMediaUrl('avator_images'),
         ]);
     }
 
@@ -154,7 +155,8 @@ class JobsController extends Controller
             'tags' => $tags, // Now each tag will have a 'jobs_count' field
             'seniorities' => ExperienceLevel::pluck('name'),
             'industries' => Industry::pluck('name'),
-            'professions' => Profession::pluck('name')
+            'professions' => Profession::pluck('name'),
+            'avator' => optional(Auth::user()->load('profile')->profile)->getFirstMediaUrl('avator_images'),
         ]);
     }
 
@@ -176,6 +178,7 @@ class JobsController extends Controller
             'professions' => $professions,
             'industries' => $industries,
             'seniorities' => $seniorities,
+            'avator' => optional(Auth::user()->load('profile')->profile)->getFirstMediaUrl('avator_images'),
         ]);
     }
 
@@ -236,6 +239,7 @@ class JobsController extends Controller
             'job' => $job,
             'logo' => optional($job->companyProfile)->getFirstMediaUrl('profile_images') ?: null,
             'cover_image' => optional($job->companyProfile)->getFirstMediaUrl('cover_image') ?: null,
+            'avator' => optional(Auth::user()->load('profile')->profile)->getFirstMediaUrl('avator_images'),
         ]);
     }
 
@@ -258,6 +262,7 @@ class JobsController extends Controller
                 'professions' => $professions,
                 'industries' => $industries,
                 'seniorities' => $seniorities,
+                'avator' => optional(Auth::user()->load('profile')->profile)->getFirstMediaUrl('avator_images'),
             ]
         ));
     }

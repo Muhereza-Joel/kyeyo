@@ -7,7 +7,7 @@ import ViewToggle from "@/Components/ViewToggle";
 import PrimaryButton from "@/Components/PrimaryButton";
 import Pagination from "@/Components/Pagination";
 
-export default function Users({ auth, permissions, users }) {
+export default function Users({ auth, permissions, users, avator }) {
     const { can } = usePermission(permissions);
     const { data, setData } = useForm({});
     const [viewMode, setViewMode] = useState("table");
@@ -166,6 +166,7 @@ export default function Users({ auth, permissions, users }) {
         <AuthenticatedLayout
             user={auth.user}
             permissions={permissions}
+            avator={avator}
             header={
                 <div className="flex flex-wrap items-center justify-between gap-4">
                     {/* Controls (Filters, View Toggle, Add Button) */}

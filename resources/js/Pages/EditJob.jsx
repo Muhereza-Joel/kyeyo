@@ -22,6 +22,7 @@ export default function EditJob({
     professions,
     industries,
     seniorities,
+    avator,
 }) {
     const quillRef = useRef(null);
     const { can } = usePermission(permissions);
@@ -69,6 +70,7 @@ export default function EditJob({
         <AuthenticatedLayout
             user={auth.user}
             permissions={permissions}
+            avator={avator}
             header={
                 <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-xl text-gray-100 dark:text-gray-200 leading-tight">

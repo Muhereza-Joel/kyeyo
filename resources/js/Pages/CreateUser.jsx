@@ -9,7 +9,14 @@ import { usePermission } from "@/Hooks/usePermissions";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
 
-export default function Create({ auth, success, error, permissions, roles }) {
+export default function Create({
+    auth,
+    success,
+    error,
+    permissions,
+    roles,
+    avator,
+}) {
     const { can } = usePermission(permissions);
     const { data, setData, post, processing, errors, reset } = useForm({
         name: "",
@@ -28,6 +35,7 @@ export default function Create({ auth, success, error, permissions, roles }) {
         <AuthenticatedLayout
             user={auth.user}
             permissions={permissions}
+            avator={avator}
             header={
                 <h2 className="font-semibold text-xl text-gray-100 dark:text-gray-200 leading-tight">
                     Create New User

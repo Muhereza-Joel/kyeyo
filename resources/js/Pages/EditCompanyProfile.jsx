@@ -20,6 +20,7 @@ export default function EditCompanyProfile({
     profile,
     logo,
     cover_image,
+    avator,
 }) {
     const [imagePreview, setImagePreview] = useState(logo);
     const [coverPreview, setCoverPreview] = useState(null);
@@ -81,6 +82,7 @@ export default function EditCompanyProfile({
         <AuthenticatedLayout
             user={auth.user}
             permissions={permissions}
+            avator={avator}
             header={
                 <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-xl text-gray-100 dark:text-gray-200 leading-tight">

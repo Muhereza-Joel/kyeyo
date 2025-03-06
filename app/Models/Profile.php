@@ -14,6 +14,10 @@ class Profile extends Model implements HasMedia
 {
     use HasFactory, SoftDeletes, InteractsWithMedia;
 
+    protected $primaryKey = 'id';
+    public $incrementing = false;
+    protected $keyType = 'uuid';
+
     protected $fillable = [
         'fullname',
         'phone_number',

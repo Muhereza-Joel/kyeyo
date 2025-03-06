@@ -14,6 +14,7 @@ export default function ManageIndustries({
     error,
     permissions,
     categories,
+    avator,
 }) {
     const { can } = usePermission(permissions);
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -79,6 +80,7 @@ export default function ManageIndustries({
         <AuthenticatedLayout
             user={auth.user}
             permissions={permissions}
+            avator={avator}
             header={
                 <h2 className="font-semibold text-xl text-gray-100 dark:text-gray-200 leading-tight">
                     Manage Job Categories
