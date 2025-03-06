@@ -160,13 +160,16 @@ export default function Authenticated({
                                             </span>
                                         </p>
                                     </div>
-                                    <Dropdown.Link
-                                        href={route("edit-user-profile")}
-                                        className="flex items-center py-3"
-                                    >
-                                        <FaUser className="mr-2 text-xl text-green-500" />
-                                        Your Profile
-                                    </Dropdown.Link>
+
+                                    {can("Create Personal Profile") && (
+                                        <Dropdown.Link
+                                            href={route("edit-user-profile")}
+                                            className="flex items-center py-3"
+                                        >
+                                            <FaUser className="mr-2 text-xl text-green-500" />
+                                            Your Profile
+                                        </Dropdown.Link>
+                                    )}
 
                                     <Dropdown.Link
                                         href={route("profile.edit")}
