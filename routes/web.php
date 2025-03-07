@@ -10,6 +10,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfessionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SocialiteController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Request;
@@ -20,6 +21,12 @@ use Spatie\Tags\Tag;
 Route::get('/', function () {
     return redirect("/login");
 });
+
+Route::controller(SocialiteController::class)->group(function () {
+    Route::get('/auth/google', 'redirectToGoogle')->name('auth.google');
+    Route::get('/auth/google-callback', 'handleGoogleCallback')->name('auth.google-callback');
+});
+
 
 Route::get('/dashboard', [DashboardController::class, 'renderDashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 

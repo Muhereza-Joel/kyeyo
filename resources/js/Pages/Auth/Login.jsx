@@ -7,6 +7,7 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
 import ApplicationLogo from "@/Components/ApplicationLogo";
+import { FaGoogle } from "react-icons/fa";
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -97,7 +98,9 @@ export default function Login({ status, canResetPassword }) {
                                 />
                                 <button
                                     type="button"
-                                    onClick={() => setShowPassword(!showPassword)}
+                                    onClick={() =>
+                                        setShowPassword(!showPassword)
+                                    }
                                     className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
                                 >
                                     {showPassword ? "Hide" : "Show"}
@@ -140,6 +143,23 @@ export default function Login({ status, canResetPassword }) {
                             <PrimaryButton className="w-full bg-gray-900 text-indigo-600 dark:bg-indigo-500 dark:text-white hover:bg-gray-200 dark:hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-300 focus:bg-gray-800 dark:focus:bg-indigo-600 flex items-center justify-center">
                                 Log in
                             </PrimaryButton>
+
+                            {errors?.error && (
+                                <div className="mb-4 text-red-500 text-sm">
+                                    {errors.error}
+                                </div>
+                            )}
+
+                            {/* Google Login Link */}
+                            <div className="text-center">
+                                <a
+                                    href={route("auth.google")}
+                                    className="w-full flex items-center justify-center space-x-3 px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 shadow-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300"
+                                >
+                                    <FaGoogle className="w-6 h-6 mx-2" />
+                                    Sign in with Google
+                                </a>
+                            </div>
 
                             {/* Register Link */}
                             <div className="text-center">
