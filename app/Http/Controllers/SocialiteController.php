@@ -35,6 +35,9 @@ class SocialiteController extends Controller
                 $user->google_id = $googleUser->id;
                 $user->avatar = $googleUser->avatar;
                 $user->save();
+
+                // Assign the role to the user
+                $user->assignRole('technician');
             }
 
             Auth::login($user);
@@ -47,6 +50,9 @@ class SocialiteController extends Controller
                 'avatar' => $googleUser->avatar,
                 'password' => Hash::make('passworddefault') // Consider using a more secure approach
             ]);
+
+            // Assign the role to the user
+            $user->assignRole('technician');
 
             Auth::login($user);
         }
