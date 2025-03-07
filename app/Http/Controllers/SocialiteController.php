@@ -19,10 +19,7 @@ class SocialiteController extends Controller
     public function handleGoogleCallback()
     {
         try {
-            $googleUser = Socialite::driver('google')
-                ->stateless()
-                ->setHttpClient(new \GuzzleHttp\Client(['verify' => false])) // Disable SSL verification
-                ->user();
+            $googleUser = Socialite::driver('google')->stateless()->user();
         } catch (\Exception $e) {
             return redirect()->route('login')->with('error', 'Google login was cancelled or failed. Please try again.');
         }
