@@ -47,7 +47,7 @@ class TagsController extends Controller
 
     public function showJobsTagged(Request $request, string $slug)
     {
-        $tag = Tag::where('slug->en', $slug)->firstOrFail();
+        $tag = Tag::whereRaw("BINARY json_unquote(json_extract(slug, '$.\"en\"')) = ?", [$slug])->firstOrFail();
         $seniorities = ExperienceLevel::pluck('name');
         $industries = Industry::pluck('name');
         $professions = Profession::pluck('name');
