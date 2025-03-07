@@ -142,7 +142,7 @@ export default function Jobs({
                                     Tagged:
                                 </span>
                                 <h3 className="text-sm font-semibold text-gray-100 dark:text-blue-400 line-clamp-1">
-                                    {currentTag.name.en}
+                                    {currentTag}
                                 </h3>
                             </div>
                         )}

@@ -47,7 +47,7 @@ class TagsController extends Controller
 
     public function showJobsTagged(Request $request, string $slug)
     {
-        $tag = Tag::where('slug->en', $slug)->firstOrFail();
+
         $seniorities = ExperienceLevel::pluck('name');
         $industries = Industry::pluck('name');
         $professions = Profession::pluck('name');
@@ -114,7 +114,7 @@ class TagsController extends Controller
             'permissions' => Auth::user()->getAllPermissions()->pluck('name'),
             'jobs' => $jobs,
             'tags' => $tags, // Now each tag has a 'jobs_count' field
-            'currentTag' => $tag,
+            'currentTag' => $slug,
             'seniorities' => $seniorities,
             'industries' => $industries,
             'professions' => $professions,
