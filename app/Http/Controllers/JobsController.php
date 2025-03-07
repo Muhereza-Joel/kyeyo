@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
-use Spatie\Tags\Tag;
+use App\Models\Tag;
 
 class JobsController extends Controller
 {

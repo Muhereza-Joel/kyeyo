@@ -9,7 +9,7 @@ use App\Models\Profession;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
-use Spatie\Tags\Tag;
+use App\Models\Tag;
 
 class TagsController extends Controller
 {
@@ -47,7 +47,7 @@ class TagsController extends Controller
 
     public function showJobsTagged(Request $request, string $slug)
     {
-        $tag = Tag::whereRaw("BINARY json_unquote(json_extract(slug, '$.\"en\"')) = ?", [$slug])->firstOrFail();
+        $tag = Tag::where('slug->en', $slug)->firstOrFail();
         $seniorities = ExperienceLevel::pluck('name');
         $industries = Industry::pluck('name');
         $professions = Profession::pluck('name');
