@@ -6,6 +6,7 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ProjectsController extends Controller
 {
@@ -106,7 +107,58 @@ class ProjectsController extends Controller
         //
     }
 
-    public function gallery() {}
-    public function storeGallery() {}
+    public function gallery(string $id)
+    {
+        $project = Project::findOrFail($id);
+        $images = $project->getMedia('project_gallery')->map(function ($media) {
+            return [
+                'id' => $media->id,
+                'url' => $media->getUrl(), // Get the URL of the media file
+            ];
+        });
+
+        return  Inertia::render('ProjectGallery', [
+            'success' => session('success'),
+            'error' => session('error'),
+            'permissions' => Auth::user()->getAllPermissions()->pluck('name'),
+            'avator' => optional(Auth::user()->load('profile')->profile)->getFirstMediaUrl('avator_images'),
+            'project_id' => $id,
+            'images' => $images,
+        ]);
+    }
+
+    public function storeGallery(Request $request)
+    {
+        $request->validate([
+            'project_id' => 'required|exists:projects,id',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Max 2MB per image
+        ]);
+
+        $project = Project::findOrFail($request->project_id);
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $project->addMedia($image)->toMediaCollection('project_gallery');
+            }
+        }
+
+        return redirect()->back()->with('success', 'Gallery successfully!');
+    }
+
+    public function deleteImage($project_id, $media_id)
+    {
+        $project = Project::findOrFail($project_id);
+        $media = Media::findOrFail($media_id);
+
+        // Ensure the media belongs to the project
+        if ($media->model_id == $project->id) {
+            $media->delete();  // Deletes the image from the media collection
+            return response()->json(['message' => 'Image deleted successfully.'], 200); // Return success response
+        }
+
+        return response()->json(['message' => 'Image not found or does not belong to the project.'], 404); // Return error response
+    }
+
+
     public function editGallery() {}
 }

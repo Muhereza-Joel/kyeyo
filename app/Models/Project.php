@@ -37,8 +37,7 @@ class Project extends Model implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('project_gallery')
-            ->singleFile(); // Ensures only one profile image
+        $this->addMediaCollection('project_gallery');
     }
 
 

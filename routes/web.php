@@ -61,6 +61,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/projects/{id}/gallery', [ProjectsController::class, 'gallery'])->name('projects.gallery');
     Route::post('/projects/{id}/gallery', [ProjectsController::class, 'storeGallery'])->name('projects.store-gallery');
     Route::get('/projects/{id}/gallery/{galleryId}/edit', [ProjectsController::class, 'editGallery'])->name('projects.edit-gallery');
+    Route::delete('/project-gallery/{project_id}/delete-image/{media_id}', [ProjectsController::class, 'deleteImage'])->name('projects.delete-image');
 });
 
 require __DIR__ . '/auth.php';
