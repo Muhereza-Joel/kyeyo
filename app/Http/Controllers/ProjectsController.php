@@ -14,11 +14,13 @@ class ProjectsController extends Controller
      */
     public function index()
     {
-        return  Inertia::render('Projects', [
+        return Inertia::render('Projects', [
             'success' => session('success'),
             'error' => session('error'),
             'permissions' => Auth::user()->getAllPermissions()->pluck('name'),
-            'projects' => Project::all(),
+            'projects' => Project::where('user_id', Auth::id()) // Filter projects by user_id
+                ->orderBy('created_at', 'desc') // Sort by most recent
+                ->get(),
             'avator' => optional(Auth::user()->load('profile')->profile)->getFirstMediaUrl('avator_images'),
         ]);
     }
@@ -41,7 +43,16 @@ class ProjectsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
+
+        $validated['user_id'] = Auth::id();
+
+        $job = Project::create($validated);
+
+        return redirect()->back()->with('success', 'Project saved successfully! Go a head add add a gallery of images to the project?');
     }
 
     /**
@@ -57,7 +68,16 @@ class ProjectsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $project = Project::findOrFail($id);
+
+        return Inertia::render('EditProject', array_merge(
+            session()->only(['success', 'error']),
+            [
+                'permissions' => Auth::check() ? Auth::user()->getAllPermissions()->pluck('name') : [],
+                'project' => $project,
+                'avator' => optional(Auth::user()->load('profile')->profile)->getFirstMediaUrl('avator_images'),
+            ]
+        ));
     }
 
     /**
@@ -65,7 +85,17 @@ class ProjectsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $project = Project::findOrFail($id);
+
+        // Validate request
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
+
+        $project->update($validated);
+
+        return redirect()->back()->with('success', 'Project details updated successfully!');
     }
 
     /**
@@ -75,4 +105,8 @@ class ProjectsController extends Controller
     {
         //
     }
+
+    public function gallery() {}
+    public function storeGallery() {}
+    public function editGallery() {}
 }

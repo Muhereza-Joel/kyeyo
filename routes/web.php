@@ -58,6 +58,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('/applications', ApplicationsController::class);
     Route::get('/search/jobs', [JobsController::class, 'search'])->name('jobs.search');
     Route::resource('/projects', ProjectsController::class);
+    Route::get('/projects/{id}/gallery', [ProjectsController::class, 'gallery'])->name('projects.gallery');
+    Route::post('/projects/{id}/gallery', [ProjectsController::class, 'storeGallery'])->name('projects.store-gallery');
+    Route::get('/projects/{id}/gallery/{galleryId}/edit', [ProjectsController::class, 'editGallery'])->name('projects.edit-gallery');
 });
 
 require __DIR__ . '/auth.php';

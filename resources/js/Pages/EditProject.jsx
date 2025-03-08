@@ -1,8 +1,6 @@
 import AlertError from "@/Components/AlertError";
 import AlertSuccess from "@/Components/AlertSuccess";
 import BackArrow from "@/Components/BackArrow";
-import BigTextBlock from "@/Components/BigTextBlock";
-import ImportanceOfProjects from "@/Components/ImportanceOfProjects";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
@@ -11,34 +9,30 @@ import TextInput from "@/Components/TextInput";
 import { usePermission } from "@/Hooks/usePermissions";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 
-export default function CreateProject({
+export default function EditProject({
     auth,
     permissions,
     avator,
     success,
     error,
+    project,
 }) {
     const quillRef = useRef(null);
     const { can } = usePermission(permissions);
-    const { data, setData, post, processing, errors, reset } = useForm({
-        title: "",
-        description: "",
+
+    // Prefill form data with existing project values
+    const { data, setData, put, processing, errors, reset } = useForm({
+        title: project.title, // Prefill with project title
+        description: project.description, // Prefill with project description
     });
 
     const submit = (e) => {
         e.preventDefault();
-        post(route("projects.store"), {
-            onSuccess: () => {
-                reset(); // Reset form fields
-
-                if (quillRef.current) {
-                    quillRef.current.getEditor().setText("");
-                }
-            },
-        });
+        put(route("projects.update", project.id), {});
     };
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -48,12 +42,12 @@ export default function CreateProject({
                 <div className="flex items-center space-x-2">
                     <BackArrow
                         link={"projects.index"}
-                        text=" Create New Project"
+                        text="Update Project Details"
                     />
                 </div>
             }
         >
-            <Head title="Create Projects" />
+            <Head title="Edit Project Details" />
 
             <div className="py-2">
                 <div className="max-w-7xl mx-auto">
@@ -71,7 +65,7 @@ export default function CreateProject({
                                         <TextInput
                                             id="title"
                                             name="title"
-                                            value={data.title}
+                                            value={data.title} // Prefilled value
                                             className="mt-1 block w-full"
                                             autoComplete="title"
                                             onChange={(e) =>
@@ -90,28 +84,28 @@ export default function CreateProject({
                                             htmlFor="description"
                                             value="Project Description"
                                         />
-                                        <QuillEditor
-                                            id="description"
-                                            ref={quillRef}
-                                            value={data.description}
-                                            onChange={(e) =>
-                                                setData(
-                                                    "description",
-                                                    e.target.value
-                                                )
-                                            }
-                                            style={{
-                                                height: "300px",
-                                                marginBottom: "3.5em",
-                                            }}
-                                            placeholder="Write a good description about your project here..."
-                                        />
+
                                         <InputError
                                             message={errors.description}
                                             className="mt-2"
                                         />
                                     </div>
-
+                                    <QuillEditor
+                                        id="description"
+                                        ref={quillRef}
+                                        value={data.description}
+                                        onChange={(e) =>
+                                            setData(
+                                                "description",
+                                                e.target.value
+                                            )
+                                        }
+                                        style={{
+                                            height: "300px",
+                                            marginBottom: "3.5em",
+                                        }}
+                                        placeholder="Write job description here..."
+                                    />
                                     {can("Create Project") && (
                                         <div className="flex items-center justify-start">
                                             <PrimaryButton
