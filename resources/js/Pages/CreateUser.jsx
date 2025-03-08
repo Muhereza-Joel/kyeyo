@@ -1,5 +1,6 @@
 import AlertError from "@/Components/AlertError";
 import AlertSuccess from "@/Components/AlertSuccess";
+import BackArrow from "@/Components/BackArrow";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
@@ -7,7 +8,8 @@ import SelectInput from "@/Components/SelectInput";
 import TextInput from "@/Components/TextInput";
 import { usePermission } from "@/Hooks/usePermissions";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, useForm } from "@inertiajs/react";
+import { Head, useForm, Link } from "@inertiajs/react";
+import { FaArrowLeft } from "react-icons/fa";
 
 export default function Create({
     auth,
@@ -37,9 +39,9 @@ export default function Create({
             permissions={permissions}
             avator={avator}
             header={
-                <h2 className="font-semibold text-xl text-gray-100 dark:text-gray-200 leading-tight">
-                    Create New User
-                </h2>
+                <div className="flex items-center space-x-2">
+                    <BackArrow link={"users.index"} />
+                </div>
             }
         >
             <Head title="Create New  User" />

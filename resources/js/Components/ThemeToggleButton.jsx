@@ -31,14 +31,14 @@ const ThemeToggleButton = () => {
                         size={20}
                         className="text-gray-900 dark:text-gray-100"
                     />
-                    <span className="ml-2 text-gray-900 dark:text-gray-100">
+                    <span className="hidden sm:inline ml-2 text-gray-900 dark:text-gray-100">
                         Light
                     </span>
                 </>
             ) : (
                 <>
                     <FaSun size={20} className="text-yellow-500" />
-                    <span className="ml-2 ">Dark</span>
+                    <span className="hidden sm:inline ml-2 ">Dark</span>
                 </>
             )}
         </button>

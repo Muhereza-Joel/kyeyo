@@ -86,4 +86,9 @@ class User extends Authenticatable implements HasMedia
     {
         return optional($this->profile)->getFirstMediaUrl('profile_cover_images') ?: null;
     }
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
 }

@@ -23,6 +23,7 @@ import {
     FaCalendarPlus,
     FaUserCircle,
     FaUser,
+    FaWarehouse,
 } from "react-icons/fa";
 
 export default function Authenticated({
@@ -37,13 +38,13 @@ export default function Authenticated({
     const { can } = usePermission(permissions);
 
     return (
-        <div className="min-h-screen bg-neutral dark:bg-gray-900">
+        <div className="flex flex-col min-h-screen bg-neutral dark:bg-gray-900">
             {/* Top Navigation Bar */}
             <nav className="sticky top-0 z-50 bg-neutral dark:bg-gray-900 border-b border-gray-300 dark:border-gray-700">
                 <div className="max-w-12xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16 items-center">
                         {/* Left Section: Menu Icon + Logo */}
-                        <div className="flex items-center">
+                        <div className="flex items-center space-x-2">
                             {/* Hamburger Menu Button */}
                             <button
                                 onClick={() =>
@@ -54,8 +55,8 @@ export default function Authenticated({
                                 <FaBars className="text-2xl" />
                             </button>
 
-                            {/* App Logo */}
-                            <Link href="/" className="ml-3">
+                            {/* App Logo - Centered properly */}
+                            <Link href="/" className="flex items-center">
                                 <ApplicationLogo className="h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
                             </Link>
                         </div>
@@ -108,6 +109,17 @@ export default function Authenticated({
                                 </NavLink>
                             )}
 
+                            {can("View Projects") && (
+                                <NavLink
+                                    href={route("projects.index")}
+                                    active={route().current("projects.index")}
+                                    className="flex items-center py-3 border-none "
+                                >
+                                    <FaWarehouse className="mr-2 text-xl text-green-500" />
+                                    My Projects
+                                </NavLink>
+                            )}
+
                             {can("View Users") && (
                                 <NavLink
                                     href={route("users.index")}
@@ -124,8 +136,9 @@ export default function Authenticated({
                         </div>
 
                         {/* Right Section: Profile & Theme Toggle */}
-                        <div className="hidden sm:flex items-center space-x-4 ml-auto">
+                        <div className="flex flex-row items-center space-x-4 ml-auto">
                             <ThemeToggleButton />
+
                             <Dropdown>
                                 <Dropdown.Trigger>
                                     <button className="inline-flex items-center px-3 py-2 text-sm font-medium rounded-md text-blue-900 dark:text-gray-400 bg-gray-200 dark:bg-gray-800 hover:text-gray-700 focus:outline-none transition">
@@ -138,7 +151,9 @@ export default function Authenticated({
                                         ) : (
                                             <FaUserCircle className="w-6 h-6 mr-2 text-gray-500" />
                                         )}
-                                        {user.name}
+                                        <span className="hidden sm:inline">
+                                            {user.name}
+                                        </span>
                                     </button>
                                 </Dropdown.Trigger>
                                 <Dropdown.Content>
@@ -306,6 +321,20 @@ export default function Authenticated({
                         <FaTachometerAlt className="mr-2 text-green-500" />
                         Dashboard
                     </ResponsiveNavLink>
+
+                    {can("Create Company Profile") && (
+                        <ResponsiveNavLink
+                            href={route("company-profile.index")}
+                            active={route().current("company-profile.index")}
+                            className="flex items-center py-3 border-none"
+                        >
+                            <FaCalendarPlus
+                                className="mr-2 text-xl"
+                                color="#4caf50"
+                            />
+                            Company Profile
+                        </ResponsiveNavLink>
+                    )}
                     {can("View Jobs") && (
                         <ResponsiveNavLink
                             href={route("jobs.index")}
@@ -324,10 +353,32 @@ export default function Authenticated({
                             Applications
                         </ResponsiveNavLink>
                     )}
-                    <ResponsiveNavLink href={route("profile.edit")}>
-                        <FaCog className="mr-2 text-green-500" />
-                        Account Settings
-                    </ResponsiveNavLink>
+
+                    {can("View Projects") && (
+                        <ResponsiveNavLink
+                            href={route("projects.index")}
+                            active={route().current("projects.index")}
+                            className="flex items-center py-3 border-none "
+                        >
+                            <FaWarehouse className="mr-2 text-xl text-green-500" />
+                            My Projects
+                        </ResponsiveNavLink>
+                    )}
+
+                    {can("View Users") && (
+                        <ResponsiveNavLink
+                            href={route("users.index")}
+                            active={route().current("users.index")}
+                            className="flex items-center py-3 border-none "
+                        >
+                            <FaBriefcase
+                                className="mr-2 text-xl"
+                                color="#4caf50"
+                            />
+                            Manage Users
+                        </ResponsiveNavLink>
+                    )}
+
                     <ResponsiveNavLink
                         href={route("logout")}
                         method="post"
@@ -336,13 +387,11 @@ export default function Authenticated({
                         <FaUserShield className="mr-2 text-green-500" />
                         Logout
                     </ResponsiveNavLink>
-
-                    <ThemeToggleButton />
                 </div>
             </div>
 
             {header && (
-                <header className="bg-gray-900 dark:bg-gray-900">
+                <header className="bg-gray-100 dark:bg-gray-900">
                     <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
                         {header}
                     </div>
@@ -350,7 +399,7 @@ export default function Authenticated({
             )}
 
             {/* Main Content */}
-            <main>{children}</main>
+            <main className="flex-grow">{children}</main>
 
             <footer className="bg-gray-900 text-white py-8 dark:bg-gray-800 dark:text-white pt-20">
                 <div className="container mx-auto px-4">

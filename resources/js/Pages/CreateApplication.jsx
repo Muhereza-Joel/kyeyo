@@ -10,6 +10,7 @@ import { usePermission } from "@/Hooks/usePermissions";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
 import { useRef, useState } from "react";
+import BackArrow from "@/Components/BackArrow";
 
 export default function CreateApplication({
     auth,
@@ -55,9 +56,13 @@ export default function CreateApplication({
             permissions={permissions}
             avator={avator}
             header={
-                <h2 className="font-semibold text-xl text-gray-100 dark:text-gray-200 leading-tight">
-                    Create New Application
-                </h2>
+                <div className="flex items-center space-x-2">
+                    <BackArrow
+                        link={"jobs.show"}
+                        text="Create Application"
+                        params={{ id: job_id }}
+                    />
+                </div>
             }
         >
             <Head title="Create New Application" />

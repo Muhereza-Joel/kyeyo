@@ -82,7 +82,7 @@ export default function ManageSeniority({
             permissions={permissions}
             avator={avator}
             header={
-                <h2 className="font-semibold text-xl text-gray-100 dark:text-gray-200 leading-tight">
+                <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-200 leading-tight">
                     Manage Experience Levels
                 </h2>
             }

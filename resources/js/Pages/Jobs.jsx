@@ -141,7 +141,7 @@ export default function Jobs({
                                 <span className="text-sm text-gray-500 dark:text-gray-400">
                                     Tagged:
                                 </span>
-                                <h3 className="text-sm font-semibold text-gray-100 dark:text-blue-400 line-clamp-1">
+                                <h3 className="text-sm font-semibold text-blue-400 dark:text-blue-400 line-clamp-1">
                                     {currentTag}
                                 </h3>
                             </div>
@@ -172,16 +172,16 @@ export default function Jobs({
                         />
                     </div>
                 </div>
-                <div className="max-w-7xl mx-auto sm:px-2 lg:px-8 flex flex-col md:flex-row gap-2">
+                <div className="max-w-7xl mx-auto sm:px-2 lg:px-8 flex flex-col md:flex-row gap-1">
                     {/* Jobs List */}
                     <div className="w-full md:w-3/4">
-                        <div className="bg-white dark:bg-gray-900 overflow-hidden shadow-lg sm:rounded-lg">
-                            <div className="p-2 text-gray-900 dark:text-gray-100">
-                                <div className="grid grid-cols-1 gap-4 mt-1">
+                        <div className="bg-neutral dark:bg-gray-900 overflow-hidden  sm:rounded-lg">
+                            <div className="pb-2 text-gray-900 dark:text-gray-100">
+                                <div className="grid grid-cols-1 gap-1 mt-1">
                                     {jobs.data.map((job) => (
                                         <div
                                             key={job.id}
-                                            className="bg-white dark:bg-gray-900 rounded-lg shadow-sm p-2 flex gap-4 items-center"
+                                            className="bg-neutral dark:bg-gray-900 rounded-lg shadow-sm p-2 flex gap-4 items-center"
                                         >
                                             {/* Left Section - Company Logo */}
                                             <div className="w-32 h-32 flex-shrink-0">

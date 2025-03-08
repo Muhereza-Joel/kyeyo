@@ -9,6 +9,7 @@ use App\Http\Controllers\JobsController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfessionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SocialiteController;
 use App\Http\Controllers\TagsController;
@@ -56,6 +57,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/jobs/{id}/applications/create', [ApplicationsController::class, 'apply'])->name('create-application');
     Route::resource('/applications', ApplicationsController::class);
     Route::get('/search/jobs', [JobsController::class, 'search'])->name('jobs.search');
+    Route::resource('/projects', ProjectsController::class);
 });
 
 require __DIR__ . '/auth.php';

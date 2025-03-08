@@ -23,8 +23,8 @@ class ApplicationsController extends Controller
             $query->whereHas('job', function ($q) use ($user) {
                 $q->where('creator', $user->id);
             });
-        } elseif ($user->hasRole('student')) {
-            // Students should only see applications they submitted
+        } elseif ($user->hasRole('technician')) {
+            // Technician should only see applications they submitted
             $query->where('user_id', $user->id);
         }
 

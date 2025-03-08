@@ -15,6 +15,7 @@ import {
     FaArrowCircleLeft,
     FaArrowCircleRight,
 } from "react-icons/fa";
+import BackArrow from "@/Components/BackArrow";
 
 export default function JobDetails({
     auth,
@@ -35,22 +36,8 @@ export default function JobDetails({
             permissions={permissions}
             avator={avator}
             header={
-                <div className="flex justify-between items-center">
-                    <h2 className="font-semibold text-xl text-gray-100 dark:text-gray-200 leading-tight">
-                        Opportunity Details
-                    </h2>
-
-                    <div className="flex">
-                        {can("View Jobs") && (
-                            <Link
-                                href={route("jobs.index")}
-                                className="inline-flex items-center px-4 py-2 bg-blue-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
-                            >
-                                <FaArrowCircleLeft size={20} className="mr-3" />
-                                Go Back
-                            </Link>
-                        )}
-                    </div>
+                <div className="flex items-center space-x-2">
+                    <BackArrow link={"jobs.index"} />
                 </div>
             }
         >

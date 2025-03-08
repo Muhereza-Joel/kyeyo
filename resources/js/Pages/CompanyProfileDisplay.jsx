@@ -25,18 +25,18 @@ export default function CompanyProfileDisplay({
             permissions={permissions}
             avator={avator}
             header={
-                <div className="px-48 flex justify-between items-center">
-                    <h2 className="font-semibold text-xl text-gray-100 dark:text-gray-200 leading-tight">
+                <div className="px-4 sm:px-48 flex flex-row sm:flex-row justify-between items-center">
+                    <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-200 leading-tight">
                         Company Profile
                     </h2>
 
-                    <div className="flex">
+                    <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                         {can("Create Company Profile") && !profile && (
                             <Link
                                 href={route("company-profile.create")}
                                 className="inline-flex items-center px-4 py-2 bg-blue-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
                             >
-                                Add Company Profile
+                                Add Profile
                             </Link>
                         )}
 
@@ -45,7 +45,7 @@ export default function CompanyProfileDisplay({
                                 href={route("company-profile.edit", profile.id)}
                                 className="inline-flex items-center px-4 py-2 bg-blue-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
                             >
-                                Update Company Profile
+                                Update Profile
                             </Link>
                         )}
                     </div>

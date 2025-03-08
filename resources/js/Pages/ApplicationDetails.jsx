@@ -1,6 +1,7 @@
 import AlertError from "@/Components/AlertError";
 import AlertSuccess from "@/Components/AlertSuccess";
 import AttachedFiles from "@/Components/AtachedFiles";
+import BackArrow from "@/Components/BackArrow";
 import InfoRow from "@/Components/InfoRow";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
@@ -52,6 +53,12 @@ export default function ApplicationDetails({
             avator={avator}
             header={
                 <div className="flex justify-between items-center">
+                    {can("View Applications") && (
+                        <BackArrow
+                            link={"applications.index"}
+                            text="Application Details"
+                        />
+                    )}
                     <div className="flex">
                         <h2 className="font-semibold sm:pl-48 text-xl text-gray-100 dark:text-gray-200 leading-tight">
                             Application Details
@@ -73,16 +80,6 @@ export default function ApplicationDetails({
                             Application Status: {application.status}
                         </span>
                     </div>
-
-                    {can("View Applications") && (
-                        <Link
-                            href={route("applications.index")}
-                            className="inline-flex items-center px-4 py-2 bg-blue-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
-                        >
-                            <FaArrowCircleLeft size={20} className="mr-3" />
-                            Go Back
-                        </Link>
-                    )}
                 </div>
             }
         >
